@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nirogidhara living Ayurveda world</title>
+  <desc id="desc">A warm sun, flowing water, herbs, copper rings, and earth textures.</desc>
+  <defs>
+    <radialGradient id="sun" cx="68%" cy="28%" r="26%">
+      <stop offset="0" stop-color="#ffd87a"/>
+      <stop offset=".55" stop-color="#d98032"/>
+      <stop offset="1" stop-color="#2f5b3d" stop-opacity=".1"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#183f3d"/>
+      <stop offset=".5" stop-color="#3d8c78"/>
+      <stop offset="1" stop-color="#e4b85d"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#071a16"/>
+  <circle cx="1080" cy="245" r="330" fill="url(#sun)" opacity=".95"/>
+  <circle cx="1080" cy="245" r="260" fill="none" stroke="#c78842" stroke-width="3" opacity=".45"/>
+  <circle cx="1080" cy="245" r="190" fill="none" stroke="#f2d58b" stroke-width="1.5" opacity=".55"/>
+  <path d="M-80 650 C240 450 450 790 780 600 C1020 462 1260 510 1700 390 L1700 980 L-80 980Z" fill="url(#water)" opacity=".72"/>
+  <path d="M-70 715 C260 545 470 830 820 670 C1080 550 1340 590 1680 470" fill="none" stroke="#f8d98c" stroke-width="5" opacity=".45"/>
+  <g fill="#d6b66d" opacity=".72">
+    <ellipse cx="206" cy="568" rx="29" ry="92" transform="rotate(-38 206 568)"/>
+    <ellipse cx="264" cy="524" rx="22" ry="70" transform="rotate(-18 264 524)"/>
+    <ellipse cx="318" cy="585" rx="18" ry="82" transform="rotate(26 318 585)"/>
+  </g>
+  <g fill="#78a867" opacity=".88">
+    <ellipse cx="116" cy="640" rx="16" ry="64" transform="rotate(34 116 640)"/>
+    <ellipse cx="152" cy="620" rx="14" ry="58" transform="rotate(-8 152 620)"/>
+    <ellipse cx="190" cy="664" rx="18" ry="70" transform="rotate(-36 190 664)"/>
+    <ellipse cx="1370" cy="580" rx="20" ry="86" transform="rotate(-28 1370 580)"/>
+    <ellipse cx="1432" cy="620" rx="16" ry="72" transform="rotate(22 1432 620)"/>
+  </g>
+  <g stroke="#c38a43" stroke-width="2" fill="none" opacity=".28">
+    <path d="M710 190l80 80-80 80-80-80z"/>
+    <path d="M710 150v240M590 270h240M625 185l170 170M795 185L625 355"/>
+  </g>
+  <circle cx="270" cy="210" r="130" fill="#6fa66a" opacity=".12" filter="url(#blur)"/>
+  <circle cx="1330" cy="735" r="190" fill="#d79b45" opacity=".1" filter="url(#blur)"/>
+</svg>

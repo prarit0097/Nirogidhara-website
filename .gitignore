@@ -1,0 +1,12 @@
+.next
+.omx
+node_modules
+data
+public/generated/*
+!public/generated/.gitkeep
+.env
+.env.local
+npm-debug.log*
+.next-server*.log
+.qa-*.png
+tsconfig.tsbuildinfo
