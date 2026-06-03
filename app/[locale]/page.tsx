@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { LanguageAlternates } from "../../components/LanguageAlternates";
-import { PostCard } from "../../components/PostCard";
 import { TopicGrid } from "../../components/TopicGrid";
 import { getLatestImages, getPublishedPosts } from "../../lib/db";
 import { medicalDisclaimer, siteUrl, topicUrl, topics } from "../../lib/site";
@@ -11,6 +10,14 @@ import type { Locale } from "../../lib/types";
 export const dynamic = "force-dynamic";
 
 const editorialVisuals = [
+  {
+    src: "/media/ayurveda-copper-water.png",
+    alt: "Copper vessel pouring water with tulsi, neem, amla, and warm morning light",
+    titleEn: "Daily rituals made visible",
+    titleHi: "दैनिक आदतों को premium visual language",
+    captionEn: "Copper, water, herbs, and sunlight create a memorable visual system for awareness content.",
+    captionHi: "Copper, water, herbs और sunlight awareness content के लिए यादगार visual system बनाते हैं."
+  },
   {
     src: "/media/ayurveda-herb-still-life.png",
     alt: "Tulsi, amla, turmeric, ashwagandha, and copper bowl in an Ayurveda still life",
@@ -26,6 +33,59 @@ const editorialVisuals = [
     titleHi: "जीवंत आयुर्वेद वातावरण में daily wellness",
     captionEn: "A premium image-led direction for daily guides, gallery, and social posts.",
     captionHi: "Daily guides, gallery और social posts के लिए premium image-led direction."
+  },
+  {
+    src: "/media/ayurveda-learning-manuscript.png",
+    alt: "Ayurveda learning scene with manuscript, herbs, copper bookmark, and warm library light",
+    titleEn: "A knowledge-first Ayurveda library",
+    titleHi: "Knowledge-first Ayurveda library",
+    captionEn: "Nirogidhara is positioned as a serious, beautiful education platform, not a product shop.",
+    captionHi: "Nirogidhara को product shop नहीं, बल्कि serious और सुंदर education platform की तरह position किया गया है."
+  }
+];
+
+const premiumVisuals = [
+  {
+    src: "/media/ayurveda-river-hero.png",
+    alt: "Ayurveda river landscape with herbs and sunrise",
+    captionEn: "Global Ayurveda awareness",
+    captionHi: "Global Ayurveda awareness"
+  },
+  {
+    src: "/media/ayurveda-copper-water.png",
+    alt: "Copper water ritual with tulsi and neem leaves",
+    captionEn: "Daily wellness rituals",
+    captionHi: "Daily wellness rituals"
+  },
+  {
+    src: "/media/ayurveda-sattvic-food.png",
+    alt: "Sattvic food bowls on banana leaf with copper utensils",
+    captionEn: "Food and digestion guides",
+    captionHi: "Food and digestion guides"
+  },
+  {
+    src: "/media/ayurveda-evening-rest.png",
+    alt: "Evening Ayurveda rest scene with herbal tea and diya",
+    captionEn: "Sleep and stress awareness",
+    captionHi: "Sleep and stress awareness"
+  },
+  {
+    src: "/media/ayurveda-herb-still-life.png",
+    alt: "Ayurveda herbs with copper bowl and turmeric",
+    captionEn: "Herb education",
+    captionHi: "Herb education"
+  },
+  {
+    src: "/media/ayurveda-courtyard-wellness.png",
+    alt: "Ayurveda courtyard with herbs and copper vessels",
+    captionEn: "Seasonal living",
+    captionHi: "Seasonal living"
+  },
+  {
+    src: "/media/ayurveda-learning-manuscript.png",
+    alt: "Ayurveda manuscript learning still life",
+    captionEn: "Research and learning",
+    captionHi: "Research and learning"
   }
 ];
 
@@ -96,8 +156,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="hero-proof">
           <span>{topics.length}</span>
           <p>{isHindi ? "SEO topic clusters" : "SEO topic clusters"}</p>
-          <span>{posts.length}</span>
-          <p>{isHindi ? "fresh guides shown" : "fresh guides shown"}</p>
+          <span>7</span>
+          <p>{isHindi ? "premium visuals live" : "premium visuals live"}</p>
         </div>
       </section>
 
@@ -126,6 +186,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         ))}
       </section>
 
+      <section className="image-river" aria-label="Ayurveda awareness image story">
+        {premiumVisuals.slice(0, 5).map((visual) => (
+          <figure key={visual.src}>
+            <Image src={visual.src} alt={visual.alt} width={520} height={320} sizes="(max-width: 900px) 72vw, 28vw" />
+            <figcaption>{isHindi ? visual.captionHi : visual.captionEn}</figcaption>
+          </figure>
+        ))}
+      </section>
+
       <TopicGrid locale={locale} />
 
       <section className="section-shell magazine-section">
@@ -136,7 +205,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         {featuredPost ? (
           <div className="featured-post">
             <Link href={`/${locale}/blog/${featuredPost.slug}`} className="featured-post-image">
-              <Image src={featuredPost.imagePath} alt={featuredPost.imageAlt} fill sizes="(max-width: 900px) 100vw, 48vw" />
+              <Image src="/media/ayurveda-learning-manuscript.png" alt="Ayurveda learning manuscript visual for the featured guide" fill sizes="(max-width: 900px) 100vw, 48vw" />
             </Link>
             <div>
               <p className="eyebrow">{featuredPost.targetKeyword}</p>
@@ -149,8 +218,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
         ) : null}
         <div className="post-grid compact-post-grid">
-          {posts.slice(1).map((post) => (
-            <PostCard key={post.id} post={post} />
+          {posts.slice(1).map((post, index) => (
+            <article className="post-card premium-post-card" key={post.id}>
+              <Link href={`/${locale}/blog/${post.slug}`} className="post-image-frame">
+                <Image src={premiumVisuals[index + 1]?.src ?? "/media/ayurveda-herb-still-life.png"} alt={premiumVisuals[index + 1]?.alt ?? post.imageAlt} fill sizes="(max-width: 900px) 100vw, 30vw" />
+              </Link>
+              <div>
+                <p className="mini-label">{post.targetKeyword}</p>
+                <h3>
+                  <Link href={`/${locale}/blog/${post.slug}`}>{post.title}</Link>
+                </h3>
+                <p>{post.excerpt}</p>
+                <span className="score-chip">SEO {post.seoScore}/100</span>
+              </div>
+            </article>
           ))}
         </div>
       </section>
@@ -161,18 +242,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <h2>{isHindi ? "Original Ayurveda visuals" : "Original Ayurveda visuals"}</h2>
         </div>
         <div className="gallery-grid premium-gallery">
-          <figure>
-            <Image src="/media/ayurveda-river-hero.png" alt="Nirogidhara Ayurveda river and herb hero visual" width={520} height={300} />
-            <figcaption>{isHindi ? "Hero visual: Ayurveda, herbs, water और sunrise." : "Hero visual: Ayurveda, herbs, water, and sunrise."}</figcaption>
-          </figure>
-          <figure>
-            <Image src="/media/ayurveda-herb-still-life.png" alt="Nirogidhara herb still life visual" width={520} height={300} />
-            <figcaption>{isHindi ? "Herb education visual for evergreen blog topics." : "Herb education visual for evergreen blog topics."}</figcaption>
-          </figure>
-          <figure>
-            <Image src="/media/ayurveda-courtyard-wellness.png" alt="Nirogidhara Ayurveda courtyard wellness visual" width={520} height={300} />
-            <figcaption>{isHindi ? "Daily wellness visual for seasonal and routine guides." : "Daily wellness visual for seasonal and routine guides."}</figcaption>
-          </figure>
+          {premiumVisuals.map((visual) => (
+            <figure key={visual.src}>
+              <Image src={visual.src} alt={visual.alt} width={520} height={300} />
+              <figcaption>{isHindi ? visual.captionHi : visual.captionEn}</figcaption>
+            </figure>
+          ))}
           {images.slice(0, 3).map((image) => (
             <figure key={image.id}>
               <Image src={image.path} alt={image.alt} width={520} height={300} />
