@@ -636,6 +636,13 @@ figcaption {
   margin-top: clamp(56px, 8vw, 92px);
 }
 
+.gallery-note {
+  max-width: 780px;
+  margin: clamp(28px, 5vw, 48px) 0 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
 .blog-index {
   margin-top: 40px;
 }

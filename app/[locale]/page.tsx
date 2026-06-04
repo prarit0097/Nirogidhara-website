@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { TopicGrid } from "../../components/TopicGrid";
-import { getLatestImages, getPublishedPosts } from "../../lib/db";
+import { getPublishedPosts } from "../../lib/db";
 import { medicalDisclaimer, premiumVisuals, siteUrl, topicUrl, topics } from "../../lib/site";
 import type { Locale } from "../../lib/types";
 
@@ -74,7 +74,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const locale = rawLocale as Locale;
   const isHindi = locale === "hi";
   const posts = getPublishedPosts(locale, 4);
-  const images = getLatestImages(6);
   const featuredPost = posts[0];
 
   return (
@@ -199,12 +198,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <figure key={visual.src}>
               <Image src={visual.src} alt={visual.alt} width={520} height={300} />
               <figcaption>{isHindi ? visual.captionHi : visual.captionEn}</figcaption>
-            </figure>
-          ))}
-          {images.slice(0, 3).map((image) => (
-            <figure key={image.id}>
-              <Image src={image.path} alt={image.alt} width={520} height={300} />
-              <figcaption>{image.caption}</figcaption>
             </figure>
           ))}
         </div>
