@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { LanguageAlternates } from "../../components/LanguageAlternates";
 import { TopicGrid } from "../../components/TopicGrid";
 import { getLatestImages, getPublishedPosts } from "../../lib/db";
-import { medicalDisclaimer, siteUrl, topicUrl, topics } from "../../lib/site";
+import { medicalDisclaimer, premiumVisuals, siteUrl, topicUrl, topics } from "../../lib/site";
 import type { Locale } from "../../lib/types";
 
 export const dynamic = "force-dynamic";
@@ -41,51 +40,6 @@ const editorialVisuals = [
     titleHi: "Knowledge-first Ayurveda library",
     captionEn: "Nirogidhara is positioned as a serious, beautiful education platform, not a product shop.",
     captionHi: "Nirogidhara को product shop नहीं, बल्कि serious और सुंदर education platform की तरह position किया गया है."
-  }
-];
-
-const premiumVisuals = [
-  {
-    src: "/media/ayurveda-river-hero.png",
-    alt: "Ayurveda river landscape with herbs and sunrise",
-    captionEn: "Global Ayurveda awareness",
-    captionHi: "Global Ayurveda awareness"
-  },
-  {
-    src: "/media/ayurveda-copper-water.png",
-    alt: "Copper water ritual with tulsi and neem leaves",
-    captionEn: "Daily wellness rituals",
-    captionHi: "Daily wellness rituals"
-  },
-  {
-    src: "/media/ayurveda-sattvic-food.png",
-    alt: "Sattvic food bowls on banana leaf with copper utensils",
-    captionEn: "Food and digestion guides",
-    captionHi: "Food and digestion guides"
-  },
-  {
-    src: "/media/ayurveda-evening-rest.png",
-    alt: "Evening Ayurveda rest scene with herbal tea and diya",
-    captionEn: "Sleep and stress awareness",
-    captionHi: "Sleep and stress awareness"
-  },
-  {
-    src: "/media/ayurveda-herb-still-life.png",
-    alt: "Ayurveda herbs with copper bowl and turmeric",
-    captionEn: "Herb education",
-    captionHi: "Herb education"
-  },
-  {
-    src: "/media/ayurveda-courtyard-wellness.png",
-    alt: "Ayurveda courtyard with herbs and copper vessels",
-    captionEn: "Seasonal living",
-    captionHi: "Seasonal living"
-  },
-  {
-    src: "/media/ayurveda-learning-manuscript.png",
-    alt: "Ayurveda manuscript learning still life",
-    captionEn: "Research and learning",
-    captionHi: "Research and learning"
   }
 ];
 
@@ -151,7 +105,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {isHindi ? "आयुर्वेद सीखें" : "Start learning Ayurveda"}
             </Link>
           </div>
-          <LanguageAlternates current={locale} enHref="/en" hiHref="/hi" />
         </div>
         <div className="hero-proof">
           <span>{topics.length}</span>

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "../../../../components/JsonLd";
 import { markdownToHtml, readingTime } from "../../../../lib/markdown";
 import { getPost, getPublishedPosts } from "../../../../lib/db";
-import { blogUrl, siteUrl, topicUrl, topics } from "../../../../lib/site";
+import { blogUrl, siteUrl, topicUrl, topicVisualPath, topics } from "../../../../lib/site";
 import type { Locale } from "../../../../lib/types";
 
 export const dynamic = "force-dynamic";
@@ -63,6 +63,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const links = JSON.parse(post.internalLinksJson) as { title: string; href: string }[];
   const html = markdownToHtml(post.content);
   const isHindi = locale === "hi";
+  const articleVisualPath = topicVisualPath(post.topicId);
 
   return (
     <article className="article-shell">
@@ -111,7 +112,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         </div>
       </header>
       <figure className="article-image">
-        <Image src={post.imagePath} alt={post.imageAlt} width={1200} height={630} priority />
+        <Image src={articleVisualPath} alt={post.imageAlt} width={1200} height={630} priority />
         <figcaption>{post.imageCaption}</figcaption>
       </figure>
       <div className="article-body" dangerouslySetInnerHTML={{ __html: html }} />

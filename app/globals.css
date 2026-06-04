@@ -156,6 +156,8 @@ h3 {
   margin: 0;
   font-family: Georgia, "Noto Serif Devanagari", "Times New Roman", serif;
   letter-spacing: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .eyebrow {
@@ -276,7 +278,7 @@ h3 {
 
 .visual-feature-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   padding-top: 0;
   padding-bottom: 52px;
@@ -547,11 +549,10 @@ h3 {
 }
 
 .post-image-frame img {
-  object-fit: contain;
+  object-fit: cover;
 }
 
-.gallery-grid img,
-.article-image img {
+.archive-gallery img {
   object-fit: contain;
 }
 
@@ -582,6 +583,8 @@ h3 {
 .gallery-grid img {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--forest);
@@ -627,6 +630,10 @@ figcaption {
 
 .page-hero {
   min-height: 62vh;
+}
+
+.gallery-subheading {
+  margin-top: clamp(56px, 8vw, 92px);
 }
 
 .blog-index {
@@ -702,6 +709,8 @@ figcaption {
 .article-image img {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--line);
 }
@@ -868,12 +877,18 @@ figcaption {
 
   nav {
     grid-column: 1 / -1;
+    grid-row: 2;
     width: 100%;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 14px 18px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    white-space: nowrap;
   }
 
   .language-switch {
+    grid-column: 2;
+    grid-row: 1;
     min-height: 38px;
     padding-inline: 14px;
   }
@@ -935,7 +950,7 @@ figcaption {
     width: min(680px, calc(100% - 36px));
     margin: 0 auto;
     align-content: start;
-    padding-top: 68px;
+    padding-top: 48px;
   }
 
   .hero-proof {

@@ -113,5 +113,77 @@ export const navItems = [
   { label: "Gallery", href: "/en/gallery" }
 ];
 
+export const navItemsByLocale: Record<Locale, { label: string; href: string }[]> = {
+  en: navItems,
+  hi: [
+    { label: "आयुर्वेद", href: "/hi/ayurveda-kya-hai" },
+    { label: "जड़ी-बूटियां", href: "/hi/ayurvedic-jadi-bootiyan" },
+    { label: "दिनचर्या", href: "/hi/dinacharya" },
+    { label: "ऋतुचर्या", href: "/hi/ritucharya" },
+    { label: "ब्लॉग", href: "/hi/blog" },
+    { label: "गैलरी", href: "/hi/gallery" }
+  ]
+};
+
+export const premiumVisuals = [
+  {
+    src: "/media/ayurveda-river-hero.png",
+    alt: "Ayurveda river landscape with herbs and sunrise",
+    captionEn: "Global Ayurveda awareness",
+    captionHi: "वैश्विक आयुर्वेद जागरूकता"
+  },
+  {
+    src: "/media/ayurveda-copper-water.png",
+    alt: "Copper water ritual with tulsi and neem leaves",
+    captionEn: "Daily wellness rituals",
+    captionHi: "दैनिक wellness rituals"
+  },
+  {
+    src: "/media/ayurveda-sattvic-food.png",
+    alt: "Sattvic food bowls on banana leaf with copper utensils",
+    captionEn: "Food and digestion guides",
+    captionHi: "भोजन और पाचन guides"
+  },
+  {
+    src: "/media/ayurveda-evening-rest.png",
+    alt: "Evening Ayurveda rest scene with herbal tea and diya",
+    captionEn: "Sleep and stress awareness",
+    captionHi: "नींद और तनाव जागरूकता"
+  },
+  {
+    src: "/media/ayurveda-herb-still-life.png",
+    alt: "Ayurveda herbs with copper bowl and turmeric",
+    captionEn: "Herb education",
+    captionHi: "जड़ी-बूटी शिक्षा"
+  },
+  {
+    src: "/media/ayurveda-courtyard-wellness.png",
+    alt: "Ayurveda courtyard with herbs and copper vessels",
+    captionEn: "Seasonal living",
+    captionHi: "मौसमी जीवनशैली"
+  },
+  {
+    src: "/media/ayurveda-learning-manuscript.png",
+    alt: "Ayurveda manuscript learning still life",
+    captionEn: "Research and learning",
+    captionHi: "Research और learning"
+  }
+];
+
+export const topicVisualById: Record<string, string> = {
+  "ayurveda-basics": "/media/ayurveda-learning-manuscript.png",
+  dinacharya: "/media/ayurveda-copper-water.png",
+  ritucharya: "/media/ayurveda-courtyard-wellness.png",
+  herbs: "/media/ayurveda-herb-still-life.png",
+  "food-digestion": "/media/ayurveda-sattvic-food.png",
+  "sleep-stress": "/media/ayurveda-evening-rest.png",
+  "natural-wellness": "/media/ayurveda-river-hero.png",
+  "global-ayurveda": "/media/ayurveda-learning-manuscript.png"
+};
+
+export function topicVisualPath(topicId: string) {
+  return topicVisualById[topicId] ?? "/media/ayurveda-herb-still-life.png";
+}
+
 export const medicalDisclaimer =
   "Nirogidhara publishes educational Ayurveda awareness content only. It does not diagnose, treat, cure, or prevent disease. Always consult a qualified healthcare professional for medical concerns.";
