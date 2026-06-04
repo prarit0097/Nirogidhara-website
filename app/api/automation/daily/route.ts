@@ -14,5 +14,5 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  return Response.json({ ok: true, schedule: "06:00 Asia/Kolkata", endpoint: "POST /api/automation/daily" });
+  return Response.json({ ok: true, schedule: "07:00 Asia/Kolkata", endpoint: "POST /api/automation/daily" });
 }

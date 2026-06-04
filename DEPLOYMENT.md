@@ -38,7 +38,8 @@ server {
 ## Daily Publishing
 
 - PM2 runs `scripts/cron-runner.cjs`.
-- It calls `POST /api/automation/daily` every day at `06:00 Asia/Kolkata`.
+- It calls `POST /api/automation/daily` every day at `07:00 Asia/Kolkata`.
+- Override the hour with `NIROGIDHARA_CRON_HOUR_IST` only when the publishing time intentionally changes.
 - If social credentials are missing, website publishing still succeeds and social rows are marked `skipped`.
 - Admin dashboard: `/admin` with HTTP Basic auth password from `ADMIN_PASSWORD`.
 
