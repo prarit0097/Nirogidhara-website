@@ -8,6 +8,16 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+if ([string]::IsNullOrWhiteSpace($PublishSecret) -and [string]::IsNullOrWhiteSpace($env:NIROGIDHARA_CODEX_PUBLISH_SECRET)) {
+  $secureSecret = Read-Host "Paste VPS CRON_SECRET for Nirogidhara publish endpoint" -AsSecureString
+  $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureSecret)
+  try {
+    $PublishSecret = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+  } finally {
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+  }
+}
+
 if (-not [string]::IsNullOrWhiteSpace($PublishSecret)) {
   [Environment]::SetEnvironmentVariable("NIROGIDHARA_CODEX_PUBLISH_SECRET", $PublishSecret, "User")
   $env:NIROGIDHARA_CODEX_PUBLISH_SECRET = $PublishSecret

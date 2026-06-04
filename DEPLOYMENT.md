@@ -56,7 +56,21 @@ Use this when AI generation must run from the Codex desktop/CLI login instead of
 Install the Windows scheduled task from the repo root:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-daily-task.ps1 -PublishSecret "same-value-as-vps-CRON_SECRET"
+powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-daily-task.ps1
+```
+
+The installer prompts for the VPS `CRON_SECRET`, stores it in the Windows user environment as `NIROGIDHARA_CODEX_PUBLISH_SECRET`, and registers the task.
+
+Check the setup:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\check-codex-daily-automation.ps1
+```
+
+Manual test run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\codex-daily-publisher.ps1
 ```
 
 The task runs daily at `07:00` local machine time. The Windows PC must be powered on, online, and signed in to Codex/ChatGPT for Codex-side AI publishing to run.
