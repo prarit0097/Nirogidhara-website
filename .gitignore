@@ -8,5 +8,6 @@ public/generated/*
 .env.local
 npm-debug.log*
 .next-server*.log
+logs
 .qa-*.png
 tsconfig.tsbuildinfo

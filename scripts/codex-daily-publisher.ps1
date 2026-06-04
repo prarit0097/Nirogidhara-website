@@ -1,0 +1,110 @@
+param(
+  [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
+  [string]$PublishUrl = $env:NIROGIDHARA_CODEX_PUBLISH_URL,
+  [string]$CodexPackage = "@openai/codex@0.137.0"
+)
+
+$ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($PublishUrl)) {
+  $PublishUrl = "https://nirogidhara.com/api/automation/codex-publish"
+}
+
+if ([string]::IsNullOrWhiteSpace($env:NIROGIDHARA_CODEX_PUBLISH_SECRET)) {
+  throw "NIROGIDHARA_CODEX_PUBLISH_SECRET is missing. Set it to the VPS CRON_SECRET in the Windows user environment."
+}
+
+$logDir = Join-Path $RepoRoot "logs\codex-daily"
+New-Item -ItemType Directory -Force -Path $logDir | Out-Null
+$stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+$logPath = Join-Path $logDir "$stamp.log"
+
+$prompt = @"
+You are the scheduled Codex-side publisher for Nirogidhara.
+
+Objective:
+- Publish one new high-quality Ayurveda awareness article group to the live website without using any AI API key inside the website repo or VPS.
+- Generate one English article, one Hindi adaptation, and one original SVG visual.
+- POST the payload to `$env:NIROGIDHARA_CODEX_PUBLISH_URL if set, otherwise $PublishUrl.
+- Authenticate with the header x-cron-secret using `$env:NIROGIDHARA_CODEX_PUBLISH_SECRET. Do not print or store the secret.
+
+Rules:
+- Do not modify repository source files during the daily publishing run.
+- Use live web search for current, reliable, non-commercial sources. Prefer official or high-authority sources for Ayurveda context and safety.
+- Avoid disease cure, diagnosis, treatment promises, guaranteed results, or unsafe medical claims.
+- Pick a topic that is not already covered on https://nirogidhara.com/en/blog and https://nirogidhara.com/hi/blog.
+- Keep content educational, practical, responsible, SEO-focused, and globally understandable.
+- Include at least 3 sources per language payload. Sources may be English-language authoritative sources for both language versions.
+- Include at least 3 FAQ entries per language.
+- Use one of these topicId values: ayurveda-basics, dinacharya, ritucharya, ayurvedic-herbs, food-digestion, sleep-stress, natural-wellness, global-ayurveda.
+- Use slugs that include today's date in India, for example topic-angle-YYYY-MM-DD.
+
+Payload shape to POST as JSON:
+{
+  "translationGroup": "codex-YYYY-MM-DD-short-topic",
+  "image": {
+    "id": "codex-YYYY-MM-DD-short-topic-image",
+    "path": "/generated/codex-YYYY-MM-DD-short-topic.svg",
+    "alt": "descriptive alt text",
+    "caption": "short caption",
+    "prompt": "visual generation rationale",
+    "svg": "<svg ...>...</svg>"
+  },
+  "posts": [
+    {
+      "locale": "en",
+      "slug": "english-slug-YYYY-MM-DD",
+      "title": "English title",
+      "metaTitle": "SEO title under 150 chars",
+      "metaDescription": "SEO description under 180 chars",
+      "excerpt": "short excerpt",
+      "content": "Markdown article, minimum 1500 characters",
+      "faq": [{"question":"...","answer":"..."}],
+      "topicId": "one allowed topicId",
+      "targetKeyword": "target keyword",
+      "sources": [{"name":"...","url":"https://..."}],
+      "internalLinks": [{"title":"Ayurveda Basics","href":"/en/ayurveda-basics"}],
+      "socialCaptions": {"linkedin":"...","instagram":"...","facebook":"...","youtube":"..."},
+      "seoScore": 85
+    },
+    {
+      "locale": "hi",
+      "slug": "hindi-transliterated-slug-YYYY-MM-DD",
+      "title": "Hindi title",
+      "metaTitle": "Hindi SEO title under 150 chars",
+      "metaDescription": "Hindi SEO description under 180 chars",
+      "excerpt": "Hindi excerpt",
+      "content": "Hindi Markdown article, minimum 1500 characters",
+      "faq": [{"question":"...","answer":"..."}],
+      "topicId": "same topicId",
+      "targetKeyword": "Hindi target keyword",
+      "sources": [{"name":"...","url":"https://..."}],
+      "internalLinks": [{"title":"आयुर्वेद की बुनियाद","href":"/hi/ayurveda-kya-hai"}],
+      "socialCaptions": {"linkedin":"...","instagram":"...","facebook":"...","youtube":"..."},
+      "seoScore": 85
+    }
+  ]
+}
+
+Implementation:
+1. Research and draft the payload.
+2. Save the payload to a temporary JSON file outside gitignored source if useful.
+3. POST it with PowerShell Invoke-RestMethod or curl to the publish URL.
+4. Verify the response status is success.
+5. Fetch the returned English and Hindi blog URLs or blog indexes to confirm HTTP 200 / visible publication.
+6. Final response must include the published slugs and verification result.
+"@
+
+Push-Location $RepoRoot
+try {
+  $env:NIROGIDHARA_CODEX_PUBLISH_URL = $PublishUrl
+  & npx -y $CodexPackage --search -a never exec -s danger-full-access -C $RepoRoot $prompt *> $logPath
+  $exitCode = $LASTEXITCODE
+  if ($exitCode -ne 0) {
+    throw "Codex daily publisher failed with exit code $exitCode. See $logPath"
+  }
+} finally {
+  Pop-Location
+}
+
+Write-Host "Codex daily publisher completed. Log: $logPath"

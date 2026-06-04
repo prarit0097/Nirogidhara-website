@@ -43,6 +43,24 @@ server {
 - If social credentials are missing, website publishing still succeeds and social rows are marked `skipped`.
 - Admin dashboard: `/admin` with HTTP Basic auth password from `ADMIN_PASSWORD`.
 
+## Codex-Side Daily AI Publishing
+
+Use this when AI generation must run from the Codex desktop/CLI login instead of an AI API key in the website or VPS.
+
+- The website exposes `POST /api/automation/codex-publish`.
+- The endpoint uses the same `CRON_SECRET` header (`x-cron-secret`) as the regular cron endpoint.
+- The endpoint accepts one Codex-generated SVG image plus one English and one Hindi article, then writes the image to `public/generated` and publishes both posts to SQLite.
+- The local Windows runner is `scripts/codex-daily-publisher.ps1`.
+- The local task installer is `scripts/install-codex-daily-task.ps1`.
+
+Install the Windows scheduled task from the repo root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-daily-task.ps1 -PublishSecret "same-value-as-vps-CRON_SECRET"
+```
+
+The task runs daily at `07:00` local machine time. The Windows PC must be powered on, online, and signed in to Codex/ChatGPT for Codex-side AI publishing to run.
+
 ## SEO Launch Checklist
 
 - Submit `https://nirogidhara.com/sitemap.xml` in Google Search Console.
