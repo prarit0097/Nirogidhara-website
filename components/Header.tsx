@@ -9,22 +9,24 @@ export function Header({ locale }: { locale: Locale }) {
 
   return (
     <header className="site-header">
-      <Link className="brand" href={`/${locale}`} aria-label="Nirogidhara home">
-        <span className="brand-mark">
-          <Leaf size={20} />
-        </span>
-        <span>Nirogidhara</span>
-      </Link>
-      <nav aria-label="Primary navigation">
-        {navItemsByLocale[locale].map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-      <Link className="language-switch" href={switchHref}>
-        {switchLabel}
-      </Link>
+      <div className="nav-shell">
+        <Link className="brand" href={`/${locale}`} aria-label="Nirogidhara home">
+          <span className="brand-mark">
+            <Leaf size={20} />
+          </span>
+          <span>Nirogidhara</span>
+        </Link>
+        <nav aria-label="Primary navigation">
+          {navItemsByLocale[locale].map((item) => (
+            <Link key={item.href} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <Link className="language-switch" href={switchHref}>
+          {switchLabel}
+        </Link>
+      </div>
     </header>
   );
 }
