@@ -49,6 +49,7 @@ Objective:
 - Generate one English article, one Hindi adaptation, and one original SVG visual.
 - POST the payload to `$env:NIROGIDHARA_CODEX_PUBLISH_URL if set, otherwise $PublishUrl.
 - Authenticate with the header x-cron-secret using `$env:NIROGIDHARA_CODEX_PUBLISH_SECRET. Do not print or store the secret.
+- Execute the publishing task now. Do not only acknowledge these instructions.
 
 Rules:
 - Do not modify repository source files during the daily publishing run.
@@ -114,7 +115,8 @@ Implementation:
 3. POST it with PowerShell Invoke-RestMethod or curl to the publish URL.
 4. Verify the response status is success.
 5. Fetch the returned English and Hindi blog URLs or blog indexes to confirm HTTP 200 / visible publication.
-6. Final response must include the published slugs and verification result.
+6. If publishing succeeds, final response must start with NIROGIDHARA_PUBLISH_SUCCESS and include the published English and Hindi URLs.
+7. If publishing fails or the endpoint is unavailable, final response must start with NIROGIDHARA_PUBLISH_FAILED and include the reason.
 "@
 
 Push-Location $RepoRoot
@@ -133,6 +135,15 @@ try {
 
   if ($exitCode -ne 0) {
     throw "Codex daily publisher failed with exit code $exitCode. See $logPath"
+  }
+
+  $logText = Get-Content -LiteralPath $logPath -Raw -ErrorAction SilentlyContinue
+  if ($logText -notmatch "NIROGIDHARA_PUBLISH_SUCCESS") {
+    if ($logText -match "NIROGIDHARA_PUBLISH_FAILED") {
+      throw "Codex daily publisher reported failure. See $logPath"
+    }
+
+    throw "Codex daily publisher did not confirm a completed publish. See $logPath"
   }
 } finally {
   Pop-Location
