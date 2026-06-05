@@ -6,11 +6,33 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Get-PublishEnvironmentValue {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Name
+  )
+
+  $value = [Environment]::GetEnvironmentVariable($Name, "Process")
+  if ([string]::IsNullOrWhiteSpace($value)) {
+    $value = [Environment]::GetEnvironmentVariable($Name, "User")
+  }
+  if ([string]::IsNullOrWhiteSpace($value)) {
+    $value = [Environment]::GetEnvironmentVariable($Name, "Machine")
+  }
+
+  return $value
+}
+
+if ([string]::IsNullOrWhiteSpace($PublishUrl)) {
+  $PublishUrl = Get-PublishEnvironmentValue -Name "NIROGIDHARA_CODEX_PUBLISH_URL"
+}
+
 if ([string]::IsNullOrWhiteSpace($PublishUrl)) {
   $PublishUrl = "https://nirogidhara.com/api/automation/codex-publish"
 }
 
-if ([string]::IsNullOrWhiteSpace($env:NIROGIDHARA_CODEX_PUBLISH_SECRET)) {
+$publishSecret = Get-PublishEnvironmentValue -Name "NIROGIDHARA_CODEX_PUBLISH_SECRET"
+if ([string]::IsNullOrWhiteSpace($publishSecret)) {
   throw "NIROGIDHARA_CODEX_PUBLISH_SECRET is missing. Set it to the VPS CRON_SECRET in the Windows user environment."
 }
 
@@ -98,8 +120,17 @@ Implementation:
 Push-Location $RepoRoot
 try {
   $env:NIROGIDHARA_CODEX_PUBLISH_URL = $PublishUrl
-  & npx -y $CodexPackage --search -a never exec -s danger-full-access -C $RepoRoot $prompt *> $logPath
-  $exitCode = $LASTEXITCODE
+  $env:NIROGIDHARA_CODEX_PUBLISH_SECRET = $publishSecret
+
+  $previousErrorActionPreference = $ErrorActionPreference
+  $ErrorActionPreference = "Continue"
+  try {
+    & npx -y $CodexPackage --search -a never exec -s danger-full-access -C $RepoRoot $prompt *> $logPath
+    $exitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+
   if ($exitCode -ne 0) {
     throw "Codex daily publisher failed with exit code $exitCode. See $logPath"
   }

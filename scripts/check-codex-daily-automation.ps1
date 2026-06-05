@@ -5,13 +5,34 @@ param(
 
 $ErrorActionPreference = "Continue"
 
+function Get-PublishEnvironmentValue {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Name
+  )
+
+  $value = [Environment]::GetEnvironmentVariable($Name, "Process")
+  if ([string]::IsNullOrWhiteSpace($value)) {
+    $value = [Environment]::GetEnvironmentVariable($Name, "User")
+  }
+  if ([string]::IsNullOrWhiteSpace($value)) {
+    $value = [Environment]::GetEnvironmentVariable($Name, "Machine")
+  }
+
+  return $value
+}
+
+if ([string]::IsNullOrWhiteSpace($PublishUrl)) {
+  $PublishUrl = Get-PublishEnvironmentValue -Name "NIROGIDHARA_CODEX_PUBLISH_URL"
+}
+
 if ([string]::IsNullOrWhiteSpace($PublishUrl)) {
   $PublishUrl = "https://nirogidhara.com/api/automation/codex-publish"
 }
 
 $task = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
 $taskInfo = if ($task) { Get-ScheduledTaskInfo -TaskName $TaskName -ErrorAction SilentlyContinue } else { $null }
-$secretConfigured = -not [string]::IsNullOrWhiteSpace($env:NIROGIDHARA_CODEX_PUBLISH_SECRET)
+$secretConfigured = -not [string]::IsNullOrWhiteSpace((Get-PublishEnvironmentValue -Name "NIROGIDHARA_CODEX_PUBLISH_SECRET"))
 
 $endpoint = $null
 try {
