@@ -140,8 +140,10 @@ try {
   }
 
   $logText = Get-Content -LiteralPath $logPath -Raw -ErrorAction SilentlyContinue
-  if ($logText -notmatch "NIROGIDHARA_PUBLISH_SUCCESS") {
-    if ($logText -match "NIROGIDHARA_PUBLISH_FAILED") {
+  $successPattern = "(?m)^codex\r?\nNIROGIDHARA_PUBLISH_SUCCESS\b|^NIROGIDHARA_PUBLISH_SUCCESS\b"
+  $failedPattern = "(?m)^codex\r?\nNIROGIDHARA_PUBLISH_FAILED\b|^NIROGIDHARA_PUBLISH_FAILED\b"
+  if ($logText -notmatch $successPattern) {
+    if ($logText -match $failedPattern) {
       throw "Codex daily publisher reported failure. See $logPath"
     }
 
