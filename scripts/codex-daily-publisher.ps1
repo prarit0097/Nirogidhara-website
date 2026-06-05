@@ -42,7 +42,7 @@ $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $logPath = Join-Path $logDir "$stamp.log"
 
 $prompt = @"
-You are the scheduled Codex-side publisher for Nirogidhara.
+Perform the scheduled Codex-side publishing run for Nirogidhara now.
 
 Objective:
 - Publish one new high-quality Ayurveda awareness article group to the live website without using any AI API key inside the website repo or VPS.
@@ -120,14 +120,16 @@ Implementation:
 "@
 
 Push-Location $RepoRoot
+$promptPath = Join-Path $logDir "$stamp.prompt.txt"
 try {
   $env:NIROGIDHARA_CODEX_PUBLISH_URL = $PublishUrl
   $env:NIROGIDHARA_CODEX_PUBLISH_SECRET = $publishSecret
+  Set-Content -LiteralPath $promptPath -Value $prompt -Encoding UTF8
 
   $previousErrorActionPreference = $ErrorActionPreference
   $ErrorActionPreference = "Continue"
   try {
-    & npx -y $CodexPackage --search -a never exec -s danger-full-access -C $RepoRoot $prompt *> $logPath
+    Get-Content -LiteralPath $promptPath -Raw | & npx -y $CodexPackage --search -a never exec -s danger-full-access -C $RepoRoot - *> $logPath
     $exitCode = $LASTEXITCODE
   } finally {
     $ErrorActionPreference = $previousErrorActionPreference
@@ -146,6 +148,7 @@ try {
     throw "Codex daily publisher did not confirm a completed publish. See $logPath"
   }
 } finally {
+  Remove-Item -LiteralPath $promptPath -Force -ErrorAction SilentlyContinue
   Pop-Location
 }
 
