@@ -61,6 +61,9 @@ Rules:
 - Include at least 3 FAQ entries per language.
 - Use one of these topicId values: ayurveda-basics, dinacharya, ritucharya, ayurvedic-herbs, food-digestion, sleep-stress, natural-wellness, global-ayurveda.
 - Use slugs that include today's date in India, for example topic-angle-YYYY-MM-DD.
+- Image quality is mandatory: no visible text inside the visual, no labels, no infographic layout, no icon set, no flat vector poster, no cartoon look, and no medical diagram style.
+- The image must look like a premium Ayurveda editorial/photo-style visual with real-world objects, warm light, herbs, copper, water, earth textures, and calm wellness atmosphere.
+- If you cannot create a convincing premium realistic SVG from scratch, create an SVG wrapper that uses one suitable existing premium Nirogidhara image from /media as the main visual and adds only subtle no-text treatment.
 
 Payload shape to POST as JSON:
 {

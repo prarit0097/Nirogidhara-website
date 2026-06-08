@@ -88,6 +88,9 @@ function parsePayload(input: unknown): CodexPublishPayload {
   if (!svg.startsWith("<svg") || !svg.includes("</svg>")) {
     throw new Error("image.svg must be a complete SVG document.");
   }
+  if (/<text[\s>]/i.test(svg)) {
+    throw new Error("image.svg must not include visible text elements.");
+  }
 
   const posts = arrayValue(
     input.posts,

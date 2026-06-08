@@ -1,113 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">Ayurveda morning oral care still life</title>
-  <desc id="desc">A warm Ayurvedic morning still life with copper cup, tongue cleaner, neem leaves, a natural toothbrush twig, and sunlight in a courtyard.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 914" role="img" aria-labelledby="title desc">
+  <title id="title">Premium Ayurveda morning oral care visual</title>
+  <desc id="desc">A realistic Ayurveda morning scene with copper water, neem leaves, amla, herbal twigs, and warm courtyard sunlight.</desc>
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#123227"/>
-      <stop offset=".48" stop-color="#42664a"/>
-      <stop offset="1" stop-color="#f1bd68"/>
+    <linearGradient id="vignette" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04150f" stop-opacity=".22"/>
+      <stop offset=".48" stop-color="#04150f" stop-opacity="0"/>
+      <stop offset="1" stop-color="#04150f" stop-opacity=".18"/>
     </linearGradient>
-    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#223b34"/>
-      <stop offset=".55" stop-color="#50694d"/>
-      <stop offset="1" stop-color="#b58a4c"/>
-    </linearGradient>
-    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6f321c"/>
-      <stop offset=".25" stop-color="#c97733"/>
-      <stop offset=".55" stop-color="#f2bc72"/>
-      <stop offset=".78" stop-color="#8f431f"/>
-      <stop offset="1" stop-color="#3f1d15"/>
-    </linearGradient>
-    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#b9d57a"/>
-      <stop offset=".55" stop-color="#648d42"/>
-      <stop offset="1" stop-color="#25482f"/>
-    </linearGradient>
-    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#fff4b8"/>
-      <stop offset=".4" stop-color="#f6c867" stop-opacity=".92"/>
-      <stop offset="1" stop-color="#f6c867" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#07150f" flood-opacity=".42"/>
-    </filter>
-    <filter id="warmGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="20"/>
-    </filter>
-    <clipPath id="frame">
-      <rect width="1200" height="675" rx="0"/>
-    </clipPath>
   </defs>
-
-  <g clip-path="url(#frame)">
-    <rect width="1200" height="675" fill="url(#sky)"/>
-    <circle cx="935" cy="128" r="240" fill="url(#sun)" filter="url(#warmGlow)"/>
-    <path d="M0 395 C180 335 300 378 470 330 C665 275 806 326 1010 250 C1112 212 1165 214 1200 222 L1200 675 L0 675Z" fill="#0a241d" opacity=".52"/>
-    <path d="M0 445 C150 405 288 455 440 392 C610 321 772 390 960 315 C1070 270 1145 273 1200 288 L1200 675 L0 675Z" fill="#14382c" opacity=".76"/>
-    <path d="M0 510 C168 476 335 530 500 472 C682 408 846 467 1020 398 C1115 360 1172 366 1200 380 L1200 675 L0 675Z" fill="url(#stone)"/>
-
-    <g opacity=".2" fill="none" stroke="#f2d28a" stroke-width="2">
-      <circle cx="870" cy="175" r="118"/>
-      <circle cx="870" cy="175" r="82"/>
-      <path d="M752 175h236M870 57v236M787 92l166 166M953 92 787 258"/>
-    </g>
-
-    <g opacity=".42">
-      <circle cx="120" cy="134" r="5" fill="#fde6a4"/>
-      <circle cx="198" cy="92" r="3" fill="#fde6a4"/>
-      <circle cx="1080" cy="128" r="4" fill="#fde6a4"/>
-      <circle cx="1026" cy="252" r="3" fill="#fde6a4"/>
-      <circle cx="704" cy="116" r="4" fill="#fde6a4"/>
-    </g>
-
-    <g filter="url(#softShadow)">
-      <ellipse cx="292" cy="542" rx="176" ry="30" fill="#07150f" opacity=".42"/>
-      <path d="M202 496 C256 450 332 448 387 492" fill="none" stroke="#78471e" stroke-width="20" stroke-linecap="round"/>
-      <path d="M214 490 C262 454 327 454 374 489" fill="none" stroke="#d69045" stroke-width="11" stroke-linecap="round"/>
-      <path d="M245 430 C250 376 282 324 324 295 C355 337 354 403 327 452 C302 453 275 445 245 430Z" fill="url(#leaf)"/>
-      <path d="M205 447 C173 405 160 360 175 314 C223 331 260 372 270 424 C253 440 230 448 205 447Z" fill="url(#leaf)"/>
-      <path d="M345 444 C374 398 414 369 462 361 C459 417 428 463 381 484 C365 474 353 461 345 444Z" fill="url(#leaf)"/>
-      <path d="M176 516 C248 475 325 466 404 507" fill="none" stroke="#203d2c" stroke-width="5" opacity=".8"/>
-      <path d="M237 432 C280 398 313 357 330 309M205 442 C197 402 187 360 176 318M370 456 C400 426 429 396 459 365" fill="none" stroke="#d4e0a9" stroke-width="3" opacity=".45"/>
-    </g>
-
-    <g filter="url(#softShadow)">
-      <ellipse cx="650" cy="532" rx="198" ry="36" fill="#07150f" opacity=".5"/>
-      <path d="M548 255 C548 222 752 222 752 255 L724 470 C718 518 582 518 576 470Z" fill="url(#copper)"/>
-      <ellipse cx="650" cy="256" rx="102" ry="34" fill="#9a4b25"/>
-      <ellipse cx="650" cy="252" rx="78" ry="20" fill="#321810"/>
-      <ellipse cx="650" cy="248" rx="54" ry="13" fill="#f0bd76" opacity=".52"/>
-      <path d="M562 285 C617 314 679 313 738 286" fill="none" stroke="#ffd39b" stroke-width="5" opacity=".36"/>
-      <path d="M590 475 C626 491 680 491 715 474" fill="none" stroke="#3c1a12" stroke-width="7" opacity=".34"/>
-      <path d="M721 312 C805 337 806 432 728 463" fill="none" stroke="#8b3f21" stroke-width="19" stroke-linecap="round"/>
-      <path d="M724 312 C786 340 787 421 730 447" fill="none" stroke="#e5a15b" stroke-width="9" stroke-linecap="round"/>
-    </g>
-
-    <g filter="url(#softShadow)">
-      <ellipse cx="890" cy="530" rx="190" ry="34" fill="#07150f" opacity=".45"/>
-      <path d="M780 492 C815 438 963 425 1032 483 C999 547 834 557 780 492Z" fill="#f5ead5"/>
-      <path d="M800 487 C844 517 947 524 1011 486" fill="none" stroke="#92b59d" stroke-width="9" stroke-linecap="round"/>
-      <path d="M782 494 C840 555 987 548 1032 484" fill="none" stroke="#30443a" stroke-width="7"/>
-      <path d="M912 335 C936 384 932 450 900 494" fill="none" stroke="#d9a36e" stroke-width="14" stroke-linecap="round"/>
-      <path d="M930 337 C954 386 948 444 918 489" fill="none" stroke="#81512e" stroke-width="8" stroke-linecap="round"/>
-      <rect x="885" y="318" width="68" height="118" rx="34" fill="#d08a50"/>
-      <path d="M898 326 C925 346 934 390 917 429" fill="none" stroke="#f4c087" stroke-width="6" stroke-linecap="round"/>
-    </g>
-
-    <g filter="url(#softShadow)">
-      <ellipse cx="474" cy="548" rx="104" ry="24" fill="#07150f" opacity=".35"/>
-      <path d="M455 286 C455 258 513 258 513 286 L505 484 C503 516 465 516 463 484Z" fill="#9ebaa8"/>
-      <ellipse cx="484" cy="286" rx="29" ry="38" fill="#e8eadc" stroke="#284338" stroke-width="7"/>
-      <path d="M475 340 L471 480" stroke="#dce7d8" stroke-width="8" opacity=".35"/>
-    </g>
-
-    <g opacity=".86">
-      <path d="M102 618 C212 560 326 558 436 619" fill="none" stroke="#d9bf74" stroke-width="4" opacity=".58"/>
-      <path d="M742 608 C864 548 984 548 1105 608" fill="none" stroke="#d9bf74" stroke-width="4" opacity=".55"/>
-      <path d="M44 578 C130 540 200 550 296 588" fill="none" stroke="#9bbf8d" stroke-width="8" stroke-linecap="round" opacity=".6"/>
-    </g>
-
-    <rect width="1200" height="675" fill="#061611" opacity=".08"/>
-  </g>
+  <image href="../media/ayurveda-copper-water.png" width="1600" height="914" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1600" height="914" fill="url(#vignette)"/>
 </svg>
