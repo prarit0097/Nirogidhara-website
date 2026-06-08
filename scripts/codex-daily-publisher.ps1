@@ -114,9 +114,11 @@ Implementation:
 2. Save the payload to a temporary JSON file outside gitignored source if useful.
 3. POST it with PowerShell Invoke-RestMethod or curl to the publish URL.
 4. Verify the response status is success.
-5. Fetch the returned English and Hindi blog URLs or blog indexes to confirm HTTP 200 / visible publication.
-6. If publishing succeeds, final response must start with NIROGIDHARA_PUBLISH_SUCCESS and include the published English and Hindi URLs.
-7. If publishing fails or the endpoint is unavailable, final response must start with NIROGIDHARA_PUBLISH_FAILED and include the reason.
+5. Fetch the returned English and Hindi blog URLs to confirm HTTP 200 / visible publication.
+6. Fetch the generated image URL, for example https://nirogidhara.com/generated/codex-YYYY-MM-DD-short-topic.svg, and confirm HTTP 200 with image/svg+xml content.
+7. Fetch the English and Hindi blog indexes to confirm the new slugs are visible.
+8. If and only if the articles, blog indexes, and generated image URL all verify successfully, final response must start with NIROGIDHARA_PUBLISH_SUCCESS and include the published English URL, Hindi URL, and image URL.
+9. If publishing fails, the endpoint is unavailable, or the generated image URL returns a non-200 response, final response must start with NIROGIDHARA_PUBLISH_FAILED and include the reason.
 "@
 
 Push-Location $RepoRoot
